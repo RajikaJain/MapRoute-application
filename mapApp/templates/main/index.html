@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--go to https://cdnjs.com/libraries/bootswatch/4.5.3 and paste -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.5.3/cerulean/bootstrap.min.css" integrity="sha512-dQLT/B7byn2LjN/DN4zeBKpwGV6qbidV0XiMRWQOL7TGrV7FkZFldkGG+DGMU+CQnMTcRZlUI7GMWt1j6akNew==" crossorigin="anonymous" />
+    <title>Map Route </title>
+</head>
+<body>
+    <div class= "navbar-expand-lg fixed-top navbar-dark bg-dark">
+        <div class= "container">
+            <a href="../" class="navbar-brand"><h3>Map Route</h3><span style ="color:rgb(39,117,161);">
+                
+            </span></a>
+            
+           
+            
+        </div>
+    </div>
+
+    <br/><br/><br>
+    
+ <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+     <form method="post" class ="col-md">
+         {% csrf_token %}
+         <div class= "input-group">
+             <input type="text" class="form-control" name="orig" placeholder="You want to start eg.Bhopal...">
+             <input type="text" class="form-control" name="dest" placeholder="You want to reach eg.Mumbai...">
+             <div class= "input-group-btn">
+                 <button type ="submit" class="btn btn-primary">Search</button>
+                 </div></div>
+     </form>
+ </nav>
+ <br> <br>
+ 
+ <div class="container" id="a1" style="text-align: center; margin-top: -30px; ">
+    <h4 class = "display-5" style ="color:rgb(38, 173, 20);" font-family="sans-serif">{{data.orig}} to  {{data.dest}}</h4>
+ </div>
+ <h1 style ="color:hsla(116, 78%, 15%, 0.911); text-align: center;  text-shadow: 2px 2px 5px red;"><span class ="badge badge-primary"  ></span> {{ToolRoad}}</h1>
+ <h4><span class ="badge badge-primary">Trip Duration :</span> {{data.totalTime}}</h4>
+ <h4><span class ="badge badge-primary">Miles :</span> {{data.miles}}</h4>
+ <h4><span class ="badge badge-primary">Kilometer :</span> {{data.kilometer}}</h4>
+ <h4><span class ="badge badge-primary">Origin :</span> {{data.orig}}</h4>
+ <h4><span class ="badge badge-primary">Destination :</span> {{data.dest}}</h4>
+ <h4><span class ="badge badge-primary">Fuel Used(Gal) :</span> {{data.fuelUsed}}</h4>
+ <h4><span class ="badge badge-primary">Fuel Used(lit) :</span> {{data.fuelLitre}}</h4>
+ 
+ <table class="table">
+    <thead>
+        <tr>
+            <th scope="col">DIRECTION</th>
+            <th scope="col">FACE</th>
+            <th scope="col">NARRATIVE</th>
+            <th scope="col">LOCATION</th>
+            <th scope="col">GPS</th>
+            <th scope="col">TIME</th>
+            <th scope="col">STREET</th>
+            <th scope="col">DISTANCE</th>
+        </tr>
+    </thead>
+    {% for m in move %}
+    <tbody>
+      <tr>
+        <td><img src="{{m.iconUrl}}" alt="" srcset=""></td>
+        <td>{{m.directionName}}</td>
+        <td>{{m.narrative}}</td>
+        <td>{{m.startPoint}}</td>
+        <td>{{m.time}}</td>
+        <td>{{m.formattedTime}}</td>
+        <td>{{m.streets}}</td>
+        <td>{{m.distance}} KM</td>
+      </tr>
+    </tbody>
+    
+    {% endfor %}
+</table>
+ 
+
+
+
+
+
+
+
+
+ <!--
+ <div class ="row">
+     {% if country_code and coordinate and temp and pressure and humidity %}
+     <div class ="col d-flex justify-content-center">
+         <div class = "card-text-white bg-light mb-6">
+             <div class = "card-body">
+                <h2  style ="color:rgb(240, 13, 100);">Forecast</h2>
+                 <h4><span class ="badge badge-primary">Forcast :</span> {{main}} <img src="https://openweathermap.org/img/w/{{icon}}.png" alt="Image" style="width: 70px;"></h4>
+                 <h4><span class ="badge badge-primary">Description :</span> {{description}}</h4>
+                 <h4><span class ="badge badge-primary">Country Code :</span> {{country_code}}</h4>
+                 <h4><span class ="badge badge-primary">Coordinate :</span> {{coordinate}}</h4>
+                </div></div></div>
+                 <div class ="col d-flex justify-content-center">
+                    <div class = "card-text-white bg-light mb-6">
+                        <div class = "card-body"> 
+                            <h2  style ="color:rgb(240, 13, 100);">Temperature</h2>
+                 <h4><span class ="badge badge-primary">Temperature :</span> {{temp}}</h4>
+                 <h4><span class ="badge badge-primary">Maximum temperature :</span> {{max_temp}}</h4>
+                 <h4><span class ="badge badge-primary">Minimum temperature:</span> {{min_temp}}</h4>
+                 
+               
+                </div></div></div>
+                <div class ="col d-flex justify-content-center">
+                   <div class = "card-text-white bg-light mb-6">
+                       <div class = "card-body">
+                        <h2  style ="color:rgb(240, 13, 100);">Sunrise and Sunset</h2>
+                 <h4><span class ="badge badge-primary">Sunrise :</span> {{sunrise}}</h4>
+                 <h4><span class ="badge badge-primary">Sunset :</span> {{sunset}}</h4>
+                </div></div></div>
+                <div class ="col d-flex justify-content-center">
+                   <div class = "card-text-white bg-light mb-6">
+                       <div class = "card-body"> 
+                        <h2  style ="color:rgb(240, 13, 100);">More Information</h2>
+                        <h4><span class ="badge badge-primary">Pressure :</span> {{pressure}}</h4>
+                 <h4><span class ="badge badge-primary"> Humidity :</span> {{humidity}}</h4>
+                 <h4><span class ="badge badge-primary">Windspeed :</span> {{wind}}</h4>
+                 <h4><span class ="badge badge-primary">Cloud Count :</span> {{clouds}}</h4>
+                 
+             </div>
+             {% endif %}
+         </div>
+ </div>
+-->
+</body>
+</html>
