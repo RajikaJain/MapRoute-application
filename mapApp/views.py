@@ -10,7 +10,7 @@ def index(request):
         orig = request.POST['orig']
         dest = request.POST['dest']
        
-        source = urllib.request.urlopen('http://www.mapquestapi.com/directions/v2/route?key=Ll5gGUEXLVVGwGW35zSfyA7PanjluyKE&from='+ orig +'&to='+ dest +'').read()
+        source = urllib.request.urlopen('http://www.mapquestapi.com/directions/v2/route?key=insertYourKey&from='+ orig +'&to='+ dest +'').read()
         list_of_data = json.loads(source)
         data ={
             "ToolRoad": str(list_of_data['route']['hasTollRoad']),
