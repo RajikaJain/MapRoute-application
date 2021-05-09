@@ -17,8 +17,8 @@ def index(request):
             "totalTime":str(list_of_data['route']['legs'][0]['formattedTime']),
             "miles": str(list_of_data['route']['distance']),
             "fuelUsed": str(list_of_data['route']['fuelUsed']),
-            "kilometer":str(list_of_data['route']['distance']*1.60934),
-            "fuelLitre":str(list_of_data['route']['fuelUsed']*3.78541),
+            "kilometer":str("{:.2f}".format((list_of_data['route']['distance'])*1.60934)),
+            "fuelLitre":str("{:.2f}".format((list_of_data['route']['fuelUsed'])*3.78541)),
             "orig": str(list_of_data['route']['locations'][0]['adminArea5'])+', '+str(list_of_data['route']['locations'][0]['adminArea3']),
             "dest": str(list_of_data['route']['locations'][1]['adminArea5'])+', '+str(list_of_data['route']['locations'][1]['adminArea3']),
             "move" :str(list_of_data["route"]["legs"][0]["maneuvers"])
